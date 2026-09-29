@@ -39,7 +39,7 @@ def mostrar_modulo(a, b):
         with col4:
             mostrar_mapa_colombia("Inverso")
 
-# Función auxiliar (abstracción) para no repetir el código del mapa 2D
+# Función auxiliar para no repetir el código del mapa 2D
 def mostrar_mapa_colombia(tipo):
     st.subheader(f"Mapa 2D - Territorio Colombiano ({tipo})")
     
@@ -61,4 +61,6 @@ def mostrar_mapa_colombia(tipo):
     )
     
     fig.update_layout(margin=dict(l=0, r=0, t=0, b=0), height=500)
-    st.plotly_chart(fig, use_container_width=True)
+    
+    # LA SOLUCIÓN ESTÁ AQUÍ: Agregamos key=tipo para que Streamlit no se confunda
+    st.plotly_chart(fig, use_container_width=True, key=tipo)
