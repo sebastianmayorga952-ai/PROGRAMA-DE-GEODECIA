@@ -1,12 +1,9 @@
 import streamlit as st
-
-# Importamos nuestro módulo modular
 from modulos import modulo_a
+from utilidades.elipsoides import DICCIONARIO_ELIPSOIDES, obtener_parametros
 
-# 1. CONFIGURACIÓN GENERAL DE LA PÁGINA
 st.set_page_config(page_title="Proyecto Geodesia Geométrica", layout="wide")
 
-# 2. BARRA LATERAL (Menú de navegación)
 st.sidebar.title("Navegación")
 opcion = st.sidebar.radio("Seleccione el Módulo:", 
                           ["A. Elipsoide 3D (Transformación)", 
@@ -15,19 +12,28 @@ opcion = st.sidebar.radio("Seleccione el Módulo:",
 
 st.sidebar.markdown("---")
 st.sidebar.subheader("Configuración Global")
-# Este selector lo conectaremos después a los 10 elipsoides
-elipsoide = st.sidebar.selectbox("Seleccione el Elipsoide:", 
-                                 ["WGS 84", "GRS 80", "Internacional 1924"])
 
-# 3. ENRUTADOR DE MÓDULOS
+# AHORA el menú desplegable lee automáticamente los 10 elipsoides
+nombre_elipsoide = st.sidebar.selectbox("Seleccione el Elipsoide:", list(DICCIONARIO_ELIPSOIDES.keys()))
+
+# Calculamos a, b, f, e2 según lo que el usuario haya seleccionado
+a, b, f, e2 = obtener_parametros(nombre_elipsoide)
+
+# Mostramos los valores abajo en el menú para que el profesor vea que sí cambian
+st.sidebar.markdown("**Parámetros actuales:**")
+st.sidebar.text(f"a  = {a} m")
+st.sidebar.text(f"b  = {b:.4f} m")
+st.sidebar.text(f"e² = {e2:.8f}")
+
 if opcion == "A. Elipsoide 3D (Transformación)":
-    # Llamamos a la función que creamos en modulo_a.py
-    modulo_a.mostrar_modulo()
+    # Le PASAMOS los parámetros al Módulo A para que el gráfico use el correcto
+    modulo_a.mostrar_modulo(a, b)
 
 elif opcion == "B. Área de Cuadrilátero":
-    st.title("Módulo B: Área de un cuadrilátero en el elipsoide")
+    st.title("Módulo B: Área de un cuadrilátero")
     st.write("Interfaz modular en construcción...")
 
 elif opcion == "C. Proyección Única de Colombia":
     st.title("Módulo C: Proyección Única (Directo e Inverso)")
     st.write("Interfaz modular en construcción...")
+    

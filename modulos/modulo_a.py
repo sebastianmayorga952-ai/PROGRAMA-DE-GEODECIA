@@ -2,10 +2,10 @@ import streamlit as st
 import numpy as np
 import plotly.graph_objects as go
 
-def mostrar_modulo():
+# Ahora la función RECIBE 'a' y 'b' desde app.py
+def mostrar_modulo(a, b):
     st.title("Módulo A: Transformación de Coordenadas y Elipsoide 3D")
     
-    # Dividimos la pantalla en dos columnas
     col1, col2 = st.columns([1, 2])
     
     with col1:
@@ -21,20 +21,15 @@ def mostrar_modulo():
     with col2:
         st.subheader("Visualización del Elipsoide 3D")
         
-        # Parámetros del elipsoide (WGS84 por defecto)
-        a = 6378137.0  
-        b = 6356752.314245 
-        
-        # Generación de la malla matemática para el 3D
         u = np.linspace(-np.pi/2, np.pi/2, 60)
         v = np.linspace(0, 2*np.pi, 60)
         U, V = np.meshgrid(u, v)
         
+        # Aquí se usan los 'a' y 'b' que vienen del menú
         X = a * np.cos(U) * np.cos(V)
         Y = a * np.cos(U) * np.sin(V)
         Z = b * np.sin(U)
         
-        # Creación de la figura con Plotly
         fig = go.Figure(data=[go.Surface(x=X, y=Y, z=Z, colorscale='Blues', opacity=0.7)])
         fig.update_layout(
             scene=dict(
@@ -44,5 +39,4 @@ def mostrar_modulo():
             margin=dict(l=0, r=0, b=0, t=0),
             height=500
         )
-        # Mostrar el gráfico
         st.plotly_chart(fig, use_container_width=True)
