@@ -1,6 +1,7 @@
 import streamlit as st
 from modulos import modulo_a
-from modulos import modulo_b  # AGREGAMOS ESTO: Importamos el Módulo B
+from modulos import modulo_b
+from modulos import modulo_c  # Importamos el Módulo C
 from utilidades.elipsoides import DICCIONARIO_ELIPSOIDES, obtener_parametros
 
 st.set_page_config(page_title="Proyecto Geodesia Geométrica", layout="wide")
@@ -26,9 +27,9 @@ if opcion == "A. Elipsoide 3D (Transformación)":
     modulo_a.mostrar_modulo(a, b)
 
 elif opcion == "B. Área de Cuadrilátero":
-    # AGREGAMOS ESTO: Llamamos a la función visual del Módulo B
     modulo_b.mostrar_modulo(a, b)
 
 elif opcion == "C. Proyección Única de Colombia":
-    st.title("Módulo C: Proyección Única (Directo e Inverso)")
-    st.write("Interfaz modular en construcción...")
+    # Llamamos a la función del Módulo C
+    modulo_c.mostrar_modulo(a, b)
+    
