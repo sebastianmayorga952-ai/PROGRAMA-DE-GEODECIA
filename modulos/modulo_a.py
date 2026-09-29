@@ -2,7 +2,6 @@ import streamlit as st
 import numpy as np
 import plotly.graph_objects as go
 
-# Ahora la función RECIBE 'a' y 'b' desde app.py
 def mostrar_modulo(a, b):
     st.title("Módulo A: Transformación de Coordenadas y Elipsoide 3D")
     
